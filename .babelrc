@@ -1,16 +1,7 @@
 {
    only: ["*.babel", "*.jsx", "*.es6"]
-  ,presets: ['react'] }
-
-/* {
-  only: [
-			"*.babel"
-			,"*.jsx"
-			,"*.es6"
-		]
-
   ,presets: [
-    ["env", {targets: {chrome: 60}}]
-    ,"react"
-  ]
-} */
+    'react'
+    ,["env", {targets: {chrome: 60}}]
+    ]
+}

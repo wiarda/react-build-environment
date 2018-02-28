@@ -13,8 +13,11 @@ module.exports = {
       { test: /\.jsx$/
         ,exclude: /node_modules/
         ,loader: 'babel-loader'
-        ,query: {presets: ['react']}
+        ,query: {presets: ['env', 'react']}
       }
+      //css for loading in bootstrap's min.css
+      ,{ test:/\.css$/
+        ,use:['style-loader', 'css-loader']}
     ]
   }
   ,output: {
