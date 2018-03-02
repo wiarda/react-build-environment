@@ -6,11 +6,18 @@ var HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   })
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var ExtractTextPluginConfig = new ExtractTextPlugin('styles.css')
-var UglifyJSPlugin = require('uglifyjs-webpack-plugin')
-var UglifyJSConfig = new UglifyJSPlugin({
-                          // sourceMap: true,
-                          uglifyOptions: {dead_code: true}
-                        })
+var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+var OptimizeCssAssetsConfig = new OptimizeCssAssetsPlugin({
+  assetNameRegExp: /.css$/,
+  cssProcessor: require('cssnano'),
+  cssProcessorOptions: { discardComments: {removeAll: true } },
+  canPrint: true
+  })
+// var UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+// var UglifyJSConfig = new UglifyJSPlugin({
+//                           // sourceMap: true,
+//                           uglifyOptions: {dead_code: true}
+//                         })
 // var ExtractSCSS = new ExtractTextPlugin('style.css')
 
 module.exports = {
@@ -60,27 +67,10 @@ module.exports = {
     ,path: __dirname + '/build'
     }
 
-  ,plugins: [HTMLWebpackPluginConfig, ExtractTextPluginConfig, UglifyJSConfig]
+  ,plugins: [
+     HTMLWebpackPluginConfig
+    ,ExtractTextPluginConfig
+    ,OptimizeCssAssetsConfig
+  ]
 
 }
-
-
-//
-// ,{ test: /\.(scss)$/
-//   ,use: [{loader: 'style-loader', // inject CSS to page
-//           }
-//         ,{loader: 'css-loader', // translates CSS into CommonJS modules
-//           }
-//         ,{loader: 'postcss-loader', // Run post css actions
-//           options: {
-//             plugins: function () { // post css plugins, can be exported to postcss.config.js
-//               return [
-//                 require('precss'),
-//                 require('autoprefixer')
-//               ];
-//             }
-//           }
-//         }
-//         ,{loader: 'sass-loader' // compiles Sass to CSS
-//         }]
-// }
