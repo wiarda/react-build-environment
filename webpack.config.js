@@ -6,7 +6,7 @@ var HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   })
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var ExtractTextPluginConfig = new ExtractTextPlugin('styles.css')
-var ExtractSCSS = new ExtractTextPlugin('style.css')
+// var ExtractSCSS = new ExtractTextPlugin('style.css')
 
 module.exports = {
    mode: 'production'
