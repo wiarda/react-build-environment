@@ -4,10 +4,15 @@ var HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   ,filename: 'index.html'
   ,inject: 'head'
   })
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var ExtractTextPluginConfig = new ExtractTextPlugin('styles.css')
+var ExtractSCSS = new ExtractTextPlugin('style.css')
 
 module.exports = {
    mode: 'production'
+
   ,entry: __dirname + '/app/index.jsx'
+
   ,module: {
     rules: [
       { test: /\.jsx$/
@@ -15,37 +20,42 @@ module.exports = {
         ,loader: 'babel-loader'
         ,query: {presets: ['env', 'react']}
       }
-      //css for loading in bootstrap's min.css
-      ,{ test:/\.css$/
-        ,use:['style-loader', 'css-loader']}
+
+      //process css
+      ,{ test: /\.css$/
+        ,use: ExtractTextPlugin.extract({fallback: 'style-loader', use:'css-loader'})
+      }
 
       //scss for bootstrap
       ,{ test: /\.(scss)$/
-        ,use: [{loader: 'style-loader', // inject CSS to page
-                }
-              ,{loader: 'css-loader', // translates CSS into CommonJS modules
-                }
-              ,{loader: 'postcss-loader', // Run post css actions
-                options: {
-                  plugins: function () { // post css plugins, can be exported to postcss.config.js
-                    return [
-                      require('precss'),
-                      require('autoprefixer')
-                    ];
+        ,use: ExtractTextPlugin.extract({
+          fallback: 'style-loader' // inject CSS to page
+          ,use: [
+                  {loader: 'css-loader'} // translates CSS into CommonJS modules
+                  ,{loader: 'postcss-loader' // Run post css actions
+                    ,options: {
+                      plugins: function () { // post css plugins, can be exported to postcss.config.js
+                        return [
+                          require('precss'),
+                          require('autoprefixer')
+                        ];
+                      }
+                    }
                   }
-                }
-              }
-              ,{loader: 'sass-loader' // compiles Sass to CSS
-              }]
-      }
+                  ,{loader: 'sass-loader'} // compiles Sass to CSS
+              ]
+            })
+        }
 
     ] // end rules array
   } //end module object
+
   ,output: {
      filename: 'index.js'
     ,path: __dirname + '/build'
     }
-  ,plugins: [HTMLWebpackPluginConfig]
+
+  ,plugins: [HTMLWebpackPluginConfig, ExtractTextPluginConfig]
 
 }
 
