@@ -65,6 +65,7 @@ module.exports = {
   ,output: {
      filename: 'index.js'
     ,path: __dirname + '/build'
+    ,publicPath: "/temp/"
     }
 
   ,plugins: [
