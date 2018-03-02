@@ -27,6 +27,7 @@
     "html-webpack-plugin": "github:webpack-contrib/html-webpack-plugin",
     "node-sass": "^4.7.2",
     "postcss-loader": "^2.1.1",
+    "postcss-property-lookup": "^2.0.0",
     "precss": "^3.1.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.2",
