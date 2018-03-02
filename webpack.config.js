@@ -6,6 +6,11 @@ var HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   })
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var ExtractTextPluginConfig = new ExtractTextPlugin('styles.css')
+var UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+var UglifyJSConfig = new UglifyJSPlugin({
+                          // sourceMap: true,
+                          uglifyOptions: {dead_code: true}
+                        })
 // var ExtractSCSS = new ExtractTextPlugin('style.css')
 
 module.exports = {
@@ -55,7 +60,7 @@ module.exports = {
     ,path: __dirname + '/build'
     }
 
-  ,plugins: [HTMLWebpackPluginConfig, ExtractTextPluginConfig]
+  ,plugins: [HTMLWebpackPluginConfig, ExtractTextPluginConfig, UglifyJSConfig]
 
 }
 
