@@ -13,11 +13,11 @@ var OptimizeCssAssetsConfig = new OptimizeCssAssetsPlugin({
   cssProcessorOptions: { discardComments: {removeAll: true } },
   canPrint: true
   })
-// var UglifyJSPlugin = require('uglifyjs-webpack-plugin')
-// var UglifyJSConfig = new UglifyJSPlugin({
-//                           // sourceMap: true,
-//                           uglifyOptions: {dead_code: true}
-//                         })
+var UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+var UglifyJSConfig = new UglifyJSPlugin({
+                          // sourceMap: true,
+                          uglifyOptions: {dead_code: true}
+                        })
 // var ExtractSCSS = new ExtractTextPlugin('style.css')
 
 module.exports = {
@@ -65,11 +65,12 @@ module.exports = {
   ,output: {
      filename: 'index.js'
     ,path: __dirname + '/build'
-    ,publicPath: "/temp/"
+    // ,publicPath: "/temp/"
     }
 
   ,plugins: [
      HTMLWebpackPluginConfig
+    ,UglifyJSConfig
     ,ExtractTextPluginConfig
     ,OptimizeCssAssetsConfig
   ]
